@@ -1,0 +1,6 @@
+{
+  "A4821": {"status": "in_transit", "carrier": "FedEx", "eta": "2026-07-15", "amount": 89.99, "customer_id": "C001"},
+  "A4900": {"status": "delivered", "carrier": "UPS", "eta": "2026-07-10", "amount": 45.00, "customer_id": "C002"},
+  "A5011": {"status": "in_transit", "carrier": "USPS", "eta": "2026-07-20", "amount": 300.00, "customer_id": "C003"},
+  "A5099": {"status": "delayed", "carrier": "FedEx", "eta": "2026-07-18", "amount": 22.50, "customer_id": "C004"}
+}
