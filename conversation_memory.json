@@ -1,0 +1,74 @@
+[
+  {
+    "hash": "b80e848f34a4b381a95fed41b261962dff03654da41151dcd429f21a34e94fdc",
+    "timestamp": "2026-07-16T05:24:28.015247+00:00",
+    "resolution": "auto_resolved",
+    "order_id": null,
+    "ticket": "“double charged for order”",
+    "answer": "I can look into this for you. To check if there was a double charge on your order, I’ll need your order ID or the email address associated with your account.\n\nOnce I have that, I can review the payment details and order status for you.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID.\"",
+    "document": "“double charged for order” “double charged for order” I can look into this for you. To check if there was a double charge on your order, I’ll need your order ID or the email address associated with your account.\n\nOnce I have that, I can review the payment details and order status for you.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID.\""
+  },
+  {
+    "hash": "dc4608fec0b2e45b0cce3d8988222131368cd809612e81fc908749e58fe1ee18",
+    "timestamp": "2026-07-16T05:24:40.582527+00:00",
+    "resolution": "auto_resolved",
+    "order_id": "A5099",
+    "ticket": "“where is my order A5099”",
+    "answer": "Here’s your order update:\n\nYour order A5099 is currently delayed in transit with FedEx. The new estimated delivery date is July 18, 2026.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID. Statuses include: processing, in_transit, delayed, delivered, returned.\"\n• [Order: A5099] Status: delayed, Carrier: FedEx, ETA: 2026-07-18",
+    "document": "“where is my order A5099” “where is my order A5099” Here’s your order update:\n\nYour order A5099 is currently delayed in transit with FedEx. The new estimated delivery date is July 18, 2026.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID. Statuses include: processing, in_transit, delayed, delivered, returned.\"\n• [Order: A5099] Status: delayed, Carrier: FedEx, ETA: 2026-07-18"
+  },
+  {
+    "hash": "2db22931ace510ad2c61ecad461c38807ac9e403d72e47be51cca90fb53a3492",
+    "timestamp": "2026-07-16T05:25:01.997340+00:00",
+    "resolution": "auto_resolved",
+    "order_id": null,
+    "ticket": "“refund for damaged item”",
+    "answer": "I can assist with your refund request for the damaged item. To process this, I’ll need your order ID or the email address linked to your account so I can review the details.\n\nOnce I have that information, I can check the refund eligibility and next steps for you.\n\n[Policy: refund_policy.md — Refund Threshold] notes that refunds above $50 USD require human approval, but I’ll confirm the amount and process once I locate your order.\n\n---\nSources used:\n• [Policy: refund_policy.md — Refund Threshold] \"Any refund request above $50 USD must be routed to a human agent for approval.\"",
+    "document": "“refund for damaged item” “refund for damaged item” I can assist with your refund request for the damaged item. To process this, I’ll need your order ID or the email address linked to your account so I can review the details.\n\nOnce I have that information, I can check the refund eligibility and next steps for you.\n\n[Policy: refund_policy.md — Refund Threshold] notes that refunds above $50 USD require human approval, but I’ll confirm the amount and process once I locate your order.\n\n---\nSources used:\n• [Policy: refund_policy.md — Refund Threshold] \"Any refund request above $50 USD must be routed to a human agent for approval.\""
+  },
+  {
+    "hash": "95d320a224c8678434740c1d0200e7707d76ebd3505bcc1629b91936f90e25a0",
+    "timestamp": "2026-07-16T05:26:34.725235+00:00",
+    "resolution": "auto_resolved",
+    "order_id": null,
+    "ticket": "“double charged for order”",
+    "answer": "I can assist with checking if there was a double charge on your order. To review this for you, I’ll need your **order ID** or the **email address** associated with your account.\n\nOnce I have that information, I can look into the payment details and order status.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID.\"",
+    "document": "“double charged for order” “double charged for order” I can assist with checking if there was a double charge on your order. To review this for you, I’ll need your **order ID** or the **email address** associated with your account.\n\nOnce I have that information, I can look into the payment details and order status.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID.\""
+  },
+  {
+    "hash": "431bc0016ff9eef17c06bfeece7dca88c8a3390a21ab97e9d8a74e0475b90ceb",
+    "timestamp": "2026-07-16T05:26:44.846539+00:00",
+    "resolution": "auto_resolved",
+    "order_id": null,
+    "ticket": "“how do I reset password”",
+    "answer": "Here’s how you can reset your password:\n\n1. Go to the login page on our website.\n2. Click the **\"Forgot Password\"** link.\n3. Enter the email address associated with your account.\n4. Check your email for a password reset link (it will expire after 30 minutes).\n\n---\nSources used:\n• [Policy: faq.md — Password Reset] \"Customers can reset their password by clicking 'Forgot Password' on the login page. A reset link is emailed and expires after 30 minutes.\"",
+    "document": "“how do I reset password” “how do I reset password” Here’s how you can reset your password:\n\n1. Go to the login page on our website.\n2. Click the **\"Forgot Password\"** link.\n3. Enter the email address associated with your account.\n4. Check your email for a password reset link (it will expire after 30 minutes).\n\n---\nSources used:\n• [Policy: faq.md — Password Reset] \"Customers can reset their password by clicking 'Forgot Password' on the login page. A reset link is emailed and expires after 30 minutes.\""
+  },
+  {
+    "hash": "9a2cf405208b99fa14e90efd66b0930cd980b58892a982cdf162dc04c5f83304",
+    "timestamp": "2026-07-16T05:30:49.296932+00:00",
+    "resolution": "auto_resolved",
+    "order_id": null,
+    "ticket": "test ticket one about order",
+    "answer": "answer one about shipping",
+    "document": "test ticket one about order test ticket one about order answer one about shipping"
+  },
+  {
+    "hash": "09d7d50c3e487526d1b4a1979d686545fb9f619fc14106c486c5c20466777b0b",
+    "timestamp": "2026-07-16T05:30:49.297259+00:00",
+    "resolution": "auto_resolved",
+    "order_id": null,
+    "ticket": "test ticket two about password reset",
+    "answer": "answer two about login",
+    "document": "test ticket two about password reset test ticket two about password reset answer two about login"
+  },
+  {
+    "hash": "f8d6cf28ca5593a1b230132206d1d73ca80e30146fbbecbc300d34d451647d3b",
+    "timestamp": "2026-07-16T05:32:51.712869+00:00",
+    "resolution": "auto_resolved",
+    "order_id": "A5099",
+    "ticket": "“where is my order A5099”",
+    "answer": "Here’s the latest update on your order:\n\nYour order **A5099** is currently **delayed** with **FedEx**, and the new estimated delivery date is **July 18, 2026**. We apologize for any inconvenience caused by this delay.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID. Statuses include: processing, in_transit, delayed, delivered, returned.\"\n• [Order: A5099] Status: delayed, Carrier: FedEx, ETA: 2026-07-18",
+    "document": "“where is my order A5099” “where is my order A5099” Here’s the latest update on your order:\n\nYour order **A5099** is currently **delayed** with **FedEx**, and the new estimated delivery date is **July 18, 2026**. We apologize for any inconvenience caused by this delay.\n\n---\nSources used:\n• [Policy: faq.md — Order Status] \"Order status can be checked using the order ID. Statuses include: processing, in_transit, delayed, delivered, returned.\"\n• [Order: A5099] Status: delayed, Carrier: FedEx, ETA: 2026-07-18"
+  }
+]

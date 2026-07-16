@@ -1,6 +1,10 @@
 import streamlit as st
+import streamlit as st
 import re
+import json
+import os
 from agent import resolve_ticket
+from memory import MemoryRetriever, _load_records
 
 # ─────────────────────────────────────────────────────────────
 # PAGE CONFIG
@@ -239,6 +243,54 @@ div[data-testid="stTextInput"] > div > div > input:focus {
     border-color: #3b82f6 !important;
     box-shadow: 0 0 0 3px rgba(59,130,246,0.15) !important;
 }
+
+/* ── Memory panel ── */
+.mem-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.mem-card-title {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: #94a3b8; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+}
+.mem-row {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #6366f1;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+}
+.mem-row:last-child { margin-bottom: 0; }
+.mem-row-meta {
+    font-size: 0.68rem; color: #94a3b8; margin-bottom: 5px;
+    display: flex; gap: 10px; align-items: center;
+}
+.mem-row-ticket { font-size: 0.82rem; color: #1e293b; font-weight: 500; margin-bottom: 4px; }
+.mem-row-answer { font-size: 0.79rem; color: #475569; line-height: 1.55; }
+.mem-badge {
+    display: inline-block;
+    background: #ede9fe; color: #6d28d9;
+    border-radius: 4px; padding: 1px 7px;
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+}
+.mem-empty {
+    font-size: 0.82rem; color: #94a3b8;
+    text-align: center; padding: 16px 0;
+}
+.mem-hist-row {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 12px 0;
+}
+.mem-hist-row:last-child { border-bottom: none; }
+.mem-hist-ticket { font-size: 0.83rem; font-weight: 500; color: #1e293b; margin-bottom: 4px; }
+.mem-hist-answer { font-size: 0.79rem; color: #475569; line-height: 1.55; }
+.mem-hist-meta   { font-size: 0.67rem; color: #94a3b8; margin-top: 4px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -545,6 +597,32 @@ with col_r:
             )
         st.markdown("</div>", unsafe_allow_html=True)
 
+    # ── CARD 3b: Past Interactions used ───────────────────────────────────────
+    past_hits = trace.get("retrieved_history", [])
+    if past_hits:
+        st.markdown(
+            "<div class='mem-card'>"
+            "<div class='mem-card-title'>🧠 Past Interactions Used</div>",
+            unsafe_allow_html=True,
+        )
+        for h in past_hits:
+            ts       = h.get("timestamp", "")[:10] if h.get("timestamp") else "—"
+            score    = h.get("score", 0)
+            t_text   = strip_md(h.get("ticket", ""))
+            pct      = int(score * 100)
+            st.markdown(
+                "<div class='mem-row'>"
+                "<div class='mem-row-meta'>"
+                "<span class='mem-badge'>Memory</span>"
+                "<span>" + ts + "</span>"
+                "<span>Similarity " + str(pct) + "%</span>"
+                "</div>"
+                "<div class='mem-row-ticket'>" + t_text[:120] + ("…" if len(t_text) > 120 else "") + "</div>"
+                "</div>",
+                unsafe_allow_html=True,
+            )
+        st.markdown("</div>", unsafe_allow_html=True)
+
     # ── CARD 4: Safety Status ──────────────────────
     injection   = trace.get("injection_detected", False)
     gate_fired  = gate.get("gate", False)
@@ -740,3 +818,79 @@ with qb2:
     if st.button("↺ Reset Queue", use_container_width=True, key="reset_q"):
         st.session_state.queue = QUEUE_SEED.copy()
         st.rerun()
+
+# ─────────────────────────────────────────────────────────────
+# PAST CONVERSATIONS — full width, always visible
+# ─────────────────────────────────────────────────────────────
+st.markdown("<div style='height:32px'></div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='slabel' style='padding:0 8px'>🧠 Past Conversations (Persistent Memory)</div>",
+    unsafe_allow_html=True,
+)
+
+all_records = _load_records()
+
+if not all_records:
+    st.markdown(
+        "<div style='background:#fff;border:1px solid #e2e8f0;border-radius:12px;"
+        "padding:20px;text-align:center;color:#94a3b8;font-size:0.84rem;margin:0 8px'>"
+        "No conversations saved yet. Submit a ticket to start building memory."
+        "</div>",
+        unsafe_allow_html=True,
+    )
+else:
+    # Show most recent first, cap at 20 to keep the page clean
+    shown = list(reversed(all_records))[:20]
+
+    mc1, mc2 = st.columns([3, 1], gap="medium")
+
+    with mc1:
+        st.markdown(
+            "<div style='font-size:0.75rem;color:#64748b;margin-bottom:8px;padding-left:2px'>"
+            + str(len(all_records)) + " conversation(s) stored</div>",
+            unsafe_allow_html=True,
+        )
+
+    with mc2:
+        if st.button("🗑 Clear Memory", use_container_width=True, key="clear_mem"):
+            import os as _os
+            mem_path = _os.path.join(
+                _os.path.dirname(_os.path.abspath(__file__)),
+                "conversation_memory.json",
+            )
+            if _os.path.exists(mem_path):
+                _os.remove(mem_path)
+            st.success("Memory cleared.")
+            st.rerun()
+
+    for rec in shown:
+        ts         = rec.get("timestamp", "")[:19].replace("T", " ") if rec.get("timestamp") else "—"
+        ticket_txt = strip_md(rec.get("ticket", "—"))
+        answer_txt = strip_md(rec.get("answer", "—"))
+        order_id   = rec.get("order_id") or "—"
+        resolution = rec.get("resolution", "auto_resolved")
+
+        res_badge = (
+            "<span class='status-badge badge-green' style='font-size:0.62rem'>✓ Resolved</span>"
+            if resolution == "auto_resolved"
+            else "<span class='status-badge badge-red' style='font-size:0.62rem'>↑ Escalated</span>"
+        )
+
+        # Truncate long answers to a readable preview
+        answer_preview = answer_txt[:300] + ("…" if len(answer_txt) > 300 else "")
+
+        st.markdown(
+            "<div class='mem-hist-row' style='background:#fff;border:1px solid #e2e8f0;"
+            "border-left:3px solid #6366f1;border-radius:0 10px 10px 0;"
+            "padding:12px 16px;margin:0 0 8px 0'>"
+            "<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px'>"
+            "<div class='mem-hist-ticket'>" + ticket_txt[:100] + ("…" if len(ticket_txt) > 100 else "") + "</div>"
+            "<div style='display:flex;gap:8px;align-items:center;flex-shrink:0'>"
+            + res_badge +
+            "<span style='font-size:0.67rem;color:#94a3b8'>" + ts + "</span>"
+            "</div></div>"
+            "<div class='mem-hist-answer'>" + answer_preview + "</div>"
+            "<div class='mem-hist-meta'>Order: " + str(order_id) + "</div>"
+            "</div>",
+            unsafe_allow_html=True,
+        )
